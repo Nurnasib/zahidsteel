@@ -19,7 +19,7 @@ class TeamController extends Controller
         $data['subTitle'] = 'Team Member';
         $data['addTitle'] = 'Add New Team Member';
         $data['editTitle'] = ' Edit Team Member';
-        $data['dataList'] = Team::OrderBy('id', 'desc')->get();
+        $data['dataList'] = Team::orderBy('serial')->orderBy('id', 'desc')->get();
 
         return view('backend.team', $data);
     }
@@ -42,7 +42,12 @@ class TeamController extends Controller
             if (! $dataInfo) {
                 return back()->with('error', 'Data not found.');
             }
-            $dataInfo->fill($request->except(['image']));
+            $dataInfo->fill($request->except(['image', 'serial']));
+
+            // New members go to the end of the list.
+            if (! $id) {
+                $dataInfo->serial = (int) Team::max('serial') + 1;
+            }
             // Assign values
             if ($request->hasFile('image')) {
                 $file = $request->file('image');
@@ -70,6 +75,33 @@ class TeamController extends Controller
             dd($err);
 
             return back()->with('error', 'Something went wrong. Please try again.');
+        }
+    }
+
+    /**
+     * Persist the drag-and-drop order from the admin list.
+     * Expects an array of team ids in their new display order.
+     */
+    public function reorder(Request $request)
+    {
+        $validated = $request->validate([
+            'order' => 'required|array',
+            'order.*' => 'required|integer|exists:teams,id',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            foreach (array_values($validated['order']) as $index => $teamId) {
+                Team::where('id', $teamId)->update(['serial' => $index + 1]);
+            }
+            DB::commit();
+
+            return response()->json(['status' => 'success']);
+        } catch (\Exception $err) {
+            DB::rollBack();
+            Log::error($err->getMessage());
+
+            return response()->json(['status' => 'error'], 500);
         }
     }
 

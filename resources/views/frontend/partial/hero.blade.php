@@ -8,7 +8,7 @@
         @endphp
         <div class="single-slider-item">
             <div class="slide-item-table">
-                <img src="{{ asset($media['original'] ?? '') }}" alt="{{$slider->title}}" style="max-height: 590px">
+                <img src="{{ asset($media['original'] ?? '') }}" alt="{{$slider->title}}">
 
             </div>
         </div>

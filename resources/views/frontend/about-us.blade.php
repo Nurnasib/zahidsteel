@@ -381,22 +381,6 @@
                                 </div>
                             </div>
                         </section>
-                        <section class="elementor-section elementor-top-section elementor-element elementor-element-4c7f3ee5 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="4c7f3ee5" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-                            <div class="elementor-container elementor-column-gap-default">
-                                <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-3360263d" data-id="3360263d" data-element_type="column">
-                                    <div class="elementor-widget-wrap elementor-element-populated">
-                                        <div class="elementor-element elementor-element-7e4fd7d8 elementor-widget elementor-widget-heading" data-id="7e4fd7d8" data-element_type="widget" data-widget_type="heading.default">
-                                            <div class="elementor-widget-container">
-                                                <h2 class="elementor-heading-title elementor-size-default">Organogram</h2>		</div>
-                                        </div>
-                                        <div class="elementor-element elementor-element-3d5385ea elementor-widget elementor-widget-image" data-id="3d5385ea" data-element_type="widget" data-widget_type="image.default">
-                                            <div class="elementor-widget-container">
-                                                <img loading="lazy" decoding="async" width="1024" height="755" src="{{asset($setting->whitebglogo)}}" class="attachment-large size-large wp-image-6938" alt="" srcset="{{asset($setting->whitebglogo)}} 1024w, {{asset($setting->whitebglogo)}} 300w, {{asset($setting->whitebglogo)}} 768w, {{asset($setting->whitebglogo)}} 1536w, {{asset($setting->whitebglogo)}} 2048w" sizes="auto, (max-width: 1024px) 100vw, 1024px">															</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
                     </div>
 
 

@@ -680,6 +680,12 @@ background:
 .hompage-slides-wrapper{width: 100%;
 margin: 0 auto;
 padding-top: 0px;}
+/* Hero slider: fixed height, crop overflow instead of squashing the image.
+   object-fit keeps the aspect ratio no matter what size image is uploaded. */
+.homepage-slides .owl-item img{width: 100%;
+height: 590px;
+object-fit: cover;
+object-position: center;}
 .spimg{float: left;
 width: 100%;
 padding-bottom: 10px;
@@ -731,7 +737,8 @@ width: 265px;position: initial;}
 	.home .mfo h2 {padding-bottom: 9px;}
 	.home .mfo {padding: 15px 0 15px;}
 	.slicknav_btn {background-color: #5E1224 !important;}
-	.owl-carousel .owl-item img {height: 160px;}
+	.project-slides .owl-item img, .client-slides .owl-item img {height: 160px;}
+	.homepage-slides .owl-item img {height: 220px;}
 	.project-info{float: left;}
 	.fwd {float: left !important;
 width: 100% !important;

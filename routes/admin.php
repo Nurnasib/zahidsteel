@@ -70,6 +70,11 @@ Route::middleware(['auth'])->group(function () {
 
         });
 
+        Route::prefix('service-page')->name('service-page.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\Admin\ServicePageController::class, 'index'])->name('index');
+            Route::post('add/update/info/{id?}', [\App\Http\Controllers\Admin\ServicePageController::class, 'addOrUpdateInfo'])->name('add.update.info');
+        });
+
         Route::prefix('review')->name('review.')->group(function () {
             Route::get('/', [\App\Http\Controllers\Admin\ReviewController::class, 'index'])->name('index');
             Route::post('add/update/info/{id?}', [\App\Http\Controllers\Admin\ReviewController::class, 'addOrUpdateInfo'])->name('add.update.info');
@@ -120,6 +125,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/', [\App\Http\Controllers\Admin\TeamController::class, 'index'])->name('index');
             Route::post('add/update/info/{id?}', [\App\Http\Controllers\Admin\TeamController::class, 'addOrUpdateInfo'])->name('add.update.info');
             Route::delete('/delete/{id}', [\App\Http\Controllers\Admin\TeamController::class, 'dataInfoDelete'])->name('delete');
+            Route::post('/reorder', [\App\Http\Controllers\Admin\TeamController::class, 'reorder'])->name('reorder');
 
         });
 

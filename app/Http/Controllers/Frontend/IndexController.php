@@ -41,10 +41,30 @@ class IndexController extends Controller
     }
 
     public function aboutUse(){
-        $data['bod'] = Team::where('teamType',1)->orderBy('id','desc')->get();
-        $data['et'] = Team::where('teamType',2)->orderBy('id','desc')->get();
+        $data['bod'] = Team::where('teamType',1)->orderBy('serial')->orderBy('id','desc')->get();
+        $data['et'] = Team::where('teamType',2)->orderBy('serial')->orderBy('id','desc')->get();
 
         return view('frontend.about-us', $data);
+    }
+
+    public function serviceDesign(){
+        $data['page'] = \App\Models\ServicePage::where('key', 'design')->first();
+        return view('frontend.services.show', $data);
+    }
+
+    public function serviceErection(){
+        $data['page'] = \App\Models\ServicePage::where('key', 'erection')->first();
+        return view('frontend.services.show', $data);
+    }
+
+    public function serviceFabrication(){
+        $data['page'] = \App\Models\ServicePage::where('key', 'fabrication')->first();
+        return view('frontend.services.show', $data);
+    }
+
+    public function serviceSupply(){
+        $data['page'] = \App\Models\ServicePage::where('key', 'supply')->first();
+        return view('frontend.services.show', $data);
     }
 
     public function completeProject(){

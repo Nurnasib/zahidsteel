@@ -16,6 +16,7 @@ class Team extends Model
         'twitter',
         'youtube',
         'linkdi',
-        'teamType'
+        'teamType',
+        'serial'
     ];
 }

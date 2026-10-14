@@ -33,9 +33,15 @@
                     </div>
                     <div class="panel-content">
                         <div class="table-responsive">
-                            <table id="basic-table" class="data-table table table-striped nowrap table-hover" cellspacing="0" width="100%">
+                            <p class="text-muted" style="margin-bottom:10px;">
+                                <i class="fa fa-arrows" aria-hidden="true"></i>
+                                Drag the handle on any row to change the display order.
+                                <span id="reorderStatus" style="margin-left:10px;font-weight:600;"></span>
+                            </p>
+                            <table id="basic-table" class="table table-striped nowrap table-hover" cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
+                                    <th style="width:40px;"></th>
                                     <th>SN</th>
 
                                     <th>Name</th>
@@ -45,10 +51,13 @@
                                     <th>Action</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="teamSortable">
                                 @foreach ($dataList as $data )
-                                    <tr>
-                                        <td>{{ $loop->index + 1 }}</td>
+                                    <tr data-id="{{ $data->id }}">
+                                        <td class="drag-handle" style="cursor:move; text-align:center; vertical-align:middle;">
+                                            <i class="fa fa-arrows" aria-hidden="true"></i>
+                                        </td>
+                                        <td class="row-serial">{{ $loop->index + 1 }}</td>
 
                                         <td>{{ $data->name }}</td>
                                         <td>{{ $data->designation }}</td>
@@ -135,5 +144,69 @@
             previewImage(e, 'imagePreviewRight', 'imageDisplayRight');
         });
     </script>
+
+    <script src="{{ asset('admin') }}/vendor/sortable/Sortable.min.js"></script>
+    <script>
+        (function () {
+            var list = document.getElementById('teamSortable');
+            var status = document.getElementById('reorderStatus');
+            if (!list) return;
+
+            function setStatus(text, color) {
+                status.textContent = text;
+                status.style.color = color;
+            }
+
+            // Renumber the SN column so it matches the new order without a reload.
+            function renumber() {
+                list.querySelectorAll('tr').forEach(function (row, i) {
+                    var cell = row.querySelector('.row-serial');
+                    if (cell) cell.textContent = i + 1;
+                });
+            }
+
+            Sortable.create(list, {
+                draggable: 'tr',
+                handle: '.drag-handle',
+                animation: 150,
+                ghostClass: 'reorder-ghost',
+                onEnd: function () {
+                    renumber();
+                    setStatus('Saving...', '#888');
+
+                    var order = Array.prototype.map.call(
+                        list.querySelectorAll('tr'),
+                        function (row) { return row.getAttribute('data-id'); }
+                    );
+
+                    fetch("{{ route('admin.team.reorder') }}", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                        body: JSON.stringify({ order: order })
+                    })
+                    .then(function (res) {
+                        if (!res.ok) throw new Error('Request failed');
+                        return res.json();
+                    })
+                    .then(function () {
+                        setStatus('Order saved', 'green');
+                        setTimeout(function () { setStatus('', ''); }, 2000);
+                    })
+                    .catch(function () {
+                        setStatus('Could not save order - please reload and try again.', 'red');
+                    });
+                }
+            });
+        })();
+    </script>
+
+    <style>
+        .reorder-ghost { opacity: .4; background: #ffeeba !important; }
+        #teamSortable tr.sortable-chosen { background: #fdfdea; }
+    </style>
 
 @endsection
