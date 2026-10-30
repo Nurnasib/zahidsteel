@@ -67,6 +67,11 @@ class IndexController extends Controller
         return view('frontend.services.show', $data);
     }
 
+    public function productPage($key){
+        $data['page'] = \App\Models\ServicePage::where('type', 'product')->where('key', $key)->firstOrFail();
+        return view('frontend.services.show', $data);
+    }
+
     public function completeProject(){
         $data['projects'] =Project::with('gallery')->where('status','active')->orderBy('id','desc')->get();
 

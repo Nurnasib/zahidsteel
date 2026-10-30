@@ -41,6 +41,22 @@
                                                value="{{ old('subtitle', $data->subtitle) }}" />
                                     </div>
 
+                                    {{-- SEO --}}
+                                    <div class="row">
+                                        <div class="col-md-5 form-group">
+                                            <label>SEO Title <small class="text-muted">(browser tab / search result)</small></label>
+                                            <input type="text" name="meta_title" class="form-control"
+                                                   placeholder="SEO title"
+                                                   value="{{ old('meta_title', $data->meta_title) }}" />
+                                        </div>
+                                        <div class="col-md-7 form-group">
+                                            <label>Meta Description</label>
+                                            <input type="text" name="meta_description" class="form-control"
+                                                   placeholder="Meta description"
+                                                   value="{{ old('meta_description', $data->meta_description) }}" />
+                                        </div>
+                                    </div>
+
                                     {{-- Top image + text blocks --}}
                                     <div class="form-group">
                                         <label>Top Blocks <small class="text-muted">(text + image shown at the top, two columns — images auto-alternate left/right)</small></label>

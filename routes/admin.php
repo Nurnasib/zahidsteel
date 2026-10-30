@@ -75,6 +75,10 @@ Route::middleware(['auth'])->group(function () {
             Route::post('add/update/info/{id?}', [\App\Http\Controllers\Admin\ServicePageController::class, 'addOrUpdateInfo'])->name('add.update.info');
         });
 
+        Route::prefix('product-page')->name('product-page.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\Admin\ServicePageController::class, 'productIndex'])->name('index');
+        });
+
         Route::prefix('review')->name('review.')->group(function () {
             Route::get('/', [\App\Http\Controllers\Admin\ReviewController::class, 'index'])->name('index');
             Route::post('add/update/info/{id?}', [\App\Http\Controllers\Admin\ReviewController::class, 'addOrUpdateInfo'])->name('add.update.info');

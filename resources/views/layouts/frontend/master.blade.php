@@ -9,7 +9,7 @@
     <meta name="google-site-verification" content="6ZFrznxep4f00Bug0ZhmBcM8tMqMNUhiR2TiYMiS5nM" />
 
     <meta property="og:image" content="{{asset('frontend')}}/assets/img/logo.png" />
-    <title>{{$setting->site_name}}</title>
+    <title>@yield('meta_title', $setting->site_name)</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{asset('frontend')}}/assets/css/bootstrap.min.css">
     <!-- Font-awesome CSS -->
@@ -53,9 +53,8 @@
 
     <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
 
-    <title>MARN STEEL STRUCTURE LIMITED.</title>
-    <meta name="description" content="{{$setting->seo_description}}" />
-    <link rel="canonical" href="index.html" />
+    <meta name="description" content="@yield('meta_description', $setting->seo_description)" />
+    <link rel="canonical" href="{{ url()->current() }}" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="{{$setting->seo_title}}" />

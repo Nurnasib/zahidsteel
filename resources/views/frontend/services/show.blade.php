@@ -1,5 +1,12 @@
 @extends('layouts.frontend.master')
 
+@if(!empty($page?->meta_title))
+    @section('meta_title', $page->meta_title)
+@endif
+@if(!empty($page?->meta_description))
+    @section('meta_description', $page->meta_description)
+@endif
+
 @section('content')
 <div class="svc-page">
     @include('frontend.services._styles')

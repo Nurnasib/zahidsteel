@@ -18,7 +18,19 @@ class ServicePageController extends Controller
         $data['dashboard'] = 'Dashboard';
         $data['subTitle']  = 'Service Pages';
         $data['editTitle'] = 'Edit Service Page';
-        $data['dataList']  = ServicePage::orderBy('id')->get();
+        $data['dataList']  = ServicePage::where('type', 'service')->orderBy('id')->get();
+
+        return view('backend.service-page', $data);
+    }
+
+    // Product pages (Products menu) share the same table, form and save logic
+    public function productIndex()
+    {
+        $data['title']     = 'Product Pages';
+        $data['dashboard'] = 'Dashboard';
+        $data['subTitle']  = 'Product Pages';
+        $data['editTitle'] = 'Edit Product Page';
+        $data['dataList']  = ServicePage::where('type', 'product')->orderBy('id')->get();
 
         return view('backend.service-page', $data);
     }
@@ -34,6 +46,8 @@ class ServicePageController extends Controller
             'remove_gallery'   => 'nullable|array',
             'title'            => 'required|string|max:255',
             'subtitle'         => 'nullable|string|max:500',
+            'meta_title'       => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:500',
             'body'             => 'nullable|string',
         ]);
 
@@ -48,6 +62,8 @@ class ServicePageController extends Controller
 
             $dataInfo->title    = $request->title;
             $dataInfo->subtitle = $request->subtitle;
+            $dataInfo->meta_title       = $request->meta_title;
+            $dataInfo->meta_description = $request->meta_description;
             $dataInfo->body     = $request->body;
 
             // Optional hero image

@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class ServicePage extends Model
 {
-    protected $fillable = ['key', 'title', 'subtitle', 'blocks', 'image', 'gallery', 'body'];
+    protected $fillable = ['key', 'type', 'title', 'subtitle', 'meta_title', 'meta_description', 'blocks', 'image', 'gallery', 'body'];
 }

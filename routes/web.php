@@ -24,6 +24,7 @@ Route::prefix('services')->name('services.')->group(function () {
     Route::get('/fabrication', [\App\Http\Controllers\Frontend\IndexController::class, 'serviceFabrication'])->name('fabrication');
     Route::get('/supply', [\App\Http\Controllers\Frontend\IndexController::class, 'serviceSupply'])->name('supply');
 });
+Route::get('/products/{key}', [\App\Http\Controllers\Frontend\IndexController::class, 'productPage'])->name('products.show');
 Route::get('/factory', [\App\Http\Controllers\Frontend\IndexController::class, 'factory'])->name('factory');
 
 Route::get('/complete-project', [\App\Http\Controllers\Frontend\IndexController::class, 'completeProject'])->name('complete-project');

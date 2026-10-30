@@ -84,16 +84,16 @@
                                     <li id="menu-item-3406" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3406"><a href="{{ route('services.supply') }}"> Supply</a></li>
                                 </ul>
                             </li>
-                            <li id="menu-item-3062" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3062"><a href="services/index.html" data-ps2id-api="true">Products</a>
+                            <li id="menu-item-3062" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3062"><a href="{{ route('products.show', 'steel-structure') }}" data-ps2id-api="true">Products</a>
                                 <ul class="sub-menu">
                                     <li id="menu-item-3404" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3404">
                                         <a href="https://industrialrackbd.com/guardrail/" target="_blank" rel="noopener noreferrer">
                                             Highway Guard Rail Systems
                                         </a>
                                     </li>
-                                    <li id="menu-item-3405" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3405"><a href="services/index.html#s2" data-ps2id-api="true">Steel Structures </a></li>
-                                    <li id="menu-item-3406" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3406"><a href="services/index.html#s3" data-ps2id-api="true">	Road Safety Products  </a></li>
-                                    <li id="menu-item-3406" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3406"><a href="services/index.html#s3" data-ps2id-api="true"> 	Custom Fabrication</a></li>
+                                    <li id="menu-item-3405" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3405"><a href="{{ route('products.show', 'steel-structure') }}">Steel Structures</a></li>
+                                    <li id="menu-item-3406" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3406"><a href="{{ route('products.show', 'road-safety') }}">Road Safety Products</a></li>
+                                    <li id="menu-item-3406" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3406"><a href="{{ route('products.show', 'custom-fabrication') }}">Custom Fabrication</a></li>
                                     <li id="menu-item-3406" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3406"><a href="https://industrialrackbd.com" data-ps2id-api="true">		Industrial Rack </a></li>
                                     <li id="menu-item-3406" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3406"><a href="https://industrialrackbd.com/industrial-furniture/" target="_blank" rel="noopener noreferrer"> 	Industrial Furniture</a></li>
                                 </ul>
