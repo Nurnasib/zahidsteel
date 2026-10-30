@@ -1,5 +1,11 @@
 @extends('layouts.frontend.master')
 
+@section('meta_title', $blog->seo_title ?: $blog->meta_title ?: $blog->title)
+@section('meta_description', $blog->seo_description ?: $blog->meta_description ?: \Illuminate\Support\Str::limit(trim(strip_tags($blog->short_description ?: $blog->description)), 160))
+@if($blog->seo_image || $blog->image)
+    @section('og_image', asset($blog->seo_image ?: $blog->image))
+@endif
+
 @section('content')
 <div class="construction-content-area singlepage">
     <div class="container">

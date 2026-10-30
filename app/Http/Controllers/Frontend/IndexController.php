@@ -29,7 +29,7 @@ class IndexController extends Controller
     }
 
     public function blogDetails($slug){
-        $data['blog'] = Blog::where('slug',$slug)->first();
+        $data['blog'] = Blog::where('slug',$slug)->firstOrFail();
         $data['blogs'] = Blog::orderBy('id','desc')->take(3)->get();
         return view('frontend.blog.details',$data);
     }

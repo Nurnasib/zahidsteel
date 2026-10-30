@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Menu;
+use App\Models\PageSeo;
 use App\Models\Setting;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
@@ -30,6 +31,16 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             $setting = Setting::find(1);
             $view->with('setting', $setting);
+        });
+
+        // SEO defaults for fixed pages (admin → Page SEO); CMS pages, albums and blog posts set their own
+        View::composer('layouts.frontend.master', function ($view) {
+            $setting = $view->getData()['setting'] ?? Setting::find(1);
+            $seo     = PageSeo::where('route_name', request()->route()?->getName())->first();
+
+            $view->with('seoTitle', $seo?->meta_title
+                ?: ($seo && $seo->route_name !== 'home' ? $seo->label . ' | ' . $setting->site_name : $setting->site_name));
+            $view->with('seoDescription', $seo?->meta_description ?: $setting->seo_description);
         });
 
         // Navigation menu (managed in admin → Navigation Menu)

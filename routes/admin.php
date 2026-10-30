@@ -76,6 +76,11 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('/delete/{id}', [\App\Http\Controllers\Admin\ServicePageController::class, 'dataInfoDelete'])->name('delete');
         });
 
+        Route::prefix('page-seo')->name('page-seo.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\Admin\PageSeoController::class, 'index'])->name('index');
+            Route::post('add/update/info/{id}', [\App\Http\Controllers\Admin\PageSeoController::class, 'addOrUpdateInfo'])->name('add.update.info');
+        });
+
         Route::prefix('menu')->name('menu.')->group(function () {
             Route::get('/', [\App\Http\Controllers\Admin\MenuController::class, 'index'])->name('index');
             Route::post('add/update/info/{id?}', [\App\Http\Controllers\Admin\MenuController::class, 'addOrUpdateInfo'])->name('add.update.info');

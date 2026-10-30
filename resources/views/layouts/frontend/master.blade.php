@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="en-US">
-
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-<!-- /Added by HTTrack -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google-site-verification" content="6ZFrznxep4f00Bug0ZhmBcM8tMqMNUhiR2TiYMiS5nM" />
 
-    <title>@yield('meta_title', $setting->site_name)</title>
+    <title>@yield('meta_title', $seoTitle)</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{asset('frontend')}}/assets/css/bootstrap.min.css">
     <!-- Font-awesome CSS -->
@@ -52,20 +49,20 @@
 
     <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
 
-    <meta name="description" content="@yield('meta_description', $setting->seo_description)" />
+    <meta name="description" content="@yield('meta_description', $seoDescription)" />
     <link rel="canonical" href="{{ url()->current() }}" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
     {{-- Social sharing: pages override meta_title / meta_description / og_image via @section --}}
-    <meta property="og:title" content="@yield('meta_title', $setting->seo_title)" />
-    <meta property="og:description" content="@yield('meta_description', $setting->seo_description)" />
+    <meta property="og:title" content="@yield('meta_title', $seoTitle)" />
+    <meta property="og:description" content="@yield('meta_description', $seoDescription)" />
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:site_name" content="{{$setting->site_name}}" />
     <meta property="article:publisher" content="{{$setting->fb}}" />
     <meta property="og:image" content="@yield('og_image', asset($setting->logo))" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="@yield('meta_title', $setting->seo_title)" />
-    <meta name="twitter:description" content="@yield('meta_description', $setting->seo_description)" />
+    <meta name="twitter:title" content="@yield('meta_title', $seoTitle)" />
+    <meta name="twitter:description" content="@yield('meta_description', $seoDescription)" />
     <meta name="twitter:image" content="@yield('og_image', asset($setting->logo))" />
 
 
@@ -106,11 +103,9 @@
         /*# sourceURL=global-styles-inline-css */
     </style>
 
-    <link rel='stylesheet' id='ald-styles-css' href='{{asset("frontend")}}/plugins/ajax-load-more-anything/assets/css/styles3d36.css?ver=3.3.1' media='all' />
     <link rel='stylesheet' id='contact-form-7-css' href='{{asset("frontend")}}/plugins/contact-form-7/includes/css/stylesdfc9.css?ver=5.8.5' media='all' />
     <link rel='stylesheet' id='bg-shce-genericons-css' href='{{asset("frontend")}}/plugins/show-hidecollapse-expand/assets/css/genericons/genericons8717.css?ver=7.0' media='all' />
     <link rel='stylesheet' id='bg-show-hide-css' href='{{asset("frontend")}}/plugins/show-hidecollapse-expand/assets/css/bg-show-hide8717.css?ver=7.0' media='all' />
-    <link rel='stylesheet' id='dflip-style-css' href='{{asset("frontend")}}/plugins/3d-flipbook-dflip-lite/assets/css/dflip.mind44c.css?ver=2.0.86' media='all' />
     <link rel='stylesheet' id='slb_core-css' href='{{asset("frontend")}}/plugins/simple-lightbox/client/css/appf342.css?ver=2.9.3' media='all' />
     <link rel='stylesheet' id='tablepress-default-css' href='{{asset("frontend")}}/plugins/tablepress/css/build/defaultac31.css?ver=2.2.4' media='all' />
     <link rel='stylesheet' id='elementor-icons-css' href='{{asset("frontend")}}/plugins/elementor/assets/lib/eicons/css/elementor-icons.mind618.css?ver=5.21.0' media='all' />
@@ -128,8 +123,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin><script id="jquery-core-js" src="{{asset('frontend')}}/js/jquery/jquery.minf43b.js?ver=3.7.1"></script>
     <script id="jquery-migrate-js" src="{{asset('frontend')}}/js/jquery/jquery-migrate.min5589.js?ver=3.4.1"></script>
 
-    <script id="ald-scripts-js" src="{{asset('frontend')}}/plugins/ajax-load-more-anything/assets/js/scripts3d36.js?ver=3.3.1"></script>
-    <link rel="https://api.w.org/" href="wp-json/index.html" /><link rel="alternate" title="JSON" type="application/json" href="wp-json/wp/v2/pages/1096.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="xmlrpc0db0.html?rsd" />
     <link rel='stylesheet' id='elementor-global-css' href='{{asset("frontend")}}/uploads/elementor/css/global.css?ver=1769855434' media='all' />
     <link rel='stylesheet' id='elementor-post-5527-css' href='{{asset("frontend")}}/uploads/elementor/css/post-5527.css?ver=1769862781' media='all' />
 
@@ -139,7 +132,6 @@
     <link rel="icon" href="{{asset($setting->favicon)}}" sizes="192x192" />
     <link rel="apple-touch-icon" href="{{asset($setting->favicon)}}" />
     <meta name="msapplication-TileImage" content="{{asset($setting->favicon)}}" />
-    <style type="text/css">{display:none}{visibility:hidden}</style>
     <link rel='stylesheet' id='e-animations-css' href='{{asset("frontend")}}/plugins/elementor/assets/lib/animations/animations.min5829.css?ver=3.15.1' media='all' />
 
 </head>
@@ -148,7 +140,7 @@
 @include('layouts.frontend.header')
 <!-- end header -->
 
-@yield('content');
+@yield('content')
 
 
 @include('layouts.frontend.footer')
@@ -175,31 +167,8 @@
 <script src="{{asset('frontend')}}/assets/js/active.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
-<script type="text/javascript" >
-
-
-    $('a').magnificPopup({
-        type: 'image',
-        closeBtnInside: false,
-        closeOnContentClick: true,
-        tLoading: '', // remove text from preloader
-
-        /* don't add this part, it's just to disable cache on image and test loading indicator */
-        callbacks: {
-            beforeChange: function() {
-                this.items[0].src = this.items[0].src + '?=' + Math.random();
-            }
-        }
-
-</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 
-<div class="ald_laser_loader">
-    <div class="ald_loader_progress"></div>
-</div>
-<script id="swv-js" src="{{asset('frontend')}}/plugins/contact-form-7/includes/swv/js/indexdfc9.js?ver=5.8.5"></script>
-
-<script id="contact-form-7-js" src="{{asset('frontend')}}/plugins/contact-form-7/includes/js/indexdfc9.js?ver=5.8.5"></script>
 <script id="page-scroll-to-id-plugin-script-js-extra">
     var mPS2id_params = {"instances":{"mPS2id_instance_0":{"selector":"a[rel='m_PageScroll2id']","autoSelectorMenuLinks":"true","excludeSelector":"a[href^='#tab-'], a[href^='#tabs-'], a[data-toggle]:not([data-toggle='tooltip']), a[data-slide], a[data-vc-tabs], a[data-vc-accordion]","scrollSpeed":1000,"autoScrollSpeed":"true","scrollEasing":"easeInOutQuint","scrollingEasing":"easeOutQuint","forceScrollEasing":"false","pageEndSmoothScroll":"true","stopScrollOnUserAction":"false","autoCorrectScroll":"false","autoCorrectScrollExtend":"false","layout":"vertical","offset":0,"dummyOffset":"false","highlightSelector":"","clickedClass":"mPS2id-clicked","targetClass":"mPS2id-target","highlightClass":"mPS2id-highlight","forceSingleHighlight":"false","keepHighlightUntilNext":"false","highlightByNextTarget":"false","appendHash":"false","scrollToHash":"true","scrollToHashForAll":"true","scrollToHashDelay":0,"scrollToHashUseElementData":"true","scrollToHashRemoveUrlHash":"false","disablePluginBelow":0,"adminDisplayWidgetsId":"true","adminTinyMCEbuttons":"true","unbindUnrelatedClickEvents":"false","unbindUnrelatedClickEventsSelector":"","normalizeAnchorPointTargets":"false","encodeLinks":"false"}},"total_instances":"1","shortcode_class":"_ps2id"};
     //# sourceURL=page-scroll-to-id-plugin-script-js-extra
@@ -218,21 +187,7 @@
     //# sourceURL=bg-show-hide-script-js-extra
 </script>
 <script id="bg-show-hide-script-js" src="{{asset('frontend')}}/plugins/show-hidecollapse-expand/assets/js/bg-show-hide8717.js?ver=7.0"></script>
-<script async data-wp-strategy="async" fetchpriority="low" id="comment-reply-js" src="{{asset('frontend')}}/js/comment-reply.min8717.js?ver=7.0"></script>
-<script id="dflip-script-js" src="{{asset('frontend')}}/plugins/3d-flipbook-dflip-lite/assets/js/dflip.mind44c.js?ver=2.0.86"></script>
-<script id="elementor-pro-webpack-runtime-js" src="{{asset('frontend')}}/plugins/elementor-pro/assets/js/webpack-pro.runtime.minac9e.js?ver=3.7.7"></script>
-<script id="elementor-webpack-runtime-js" src="{{asset('frontend')}}/plugins/elementor/assets/js/webpack.runtime.min5829.js?ver=3.15.1"></script>
-<script id="elementor-frontend-modules-js" src="{{asset('frontend')}}/plugins/elementor/assets/js/frontend-modules.min5829.js?ver=3.15.1"></script>
-<script id="wp-hooks-js" src="{{asset('frontend')}}/js/dist/hooks.min394d.js?ver=7496969728ca0f95732d"></script>
-<script id="wp-i18n-js" src="{{asset('frontend')}}/js/dist/i18n.mineca5.js?ver=781d11515ad3d91786ec"></script>
-
-
-<script id="elementor-pro-frontend-js" src="{{asset('frontend')}}/plugins/elementor-pro/assets/js/frontend.minac9e.js?ver=3.7.7"></script>
-<script id="elementor-waypoints-js" src="{{asset('frontend')}}/plugins/elementor/assets/lib/waypoints/waypoints.min05da.js?ver=4.0.2"></script>
 <script id="jquery-ui-core-js" src="{{asset('frontend')}}/js/jquery/ui/core.minb37e.js?ver=1.13.3"></script>
-
-<script id="elementor-frontend-js" src="{{asset('frontend')}}/plugins/elementor/assets/js/frontend.min5829.js?ver=3.15.1"></script>
-<script id="pro-elements-handlers-js" src="{{asset('frontend')}}/plugins/elementor-pro/assets/js/elements-handlers.minac9e.js?ver=3.7.7"></script>
 
 
 </body>
