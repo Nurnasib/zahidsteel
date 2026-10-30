@@ -62,13 +62,18 @@
                                                 {{-- Existing stored images (edit mode) --}}
                                                 @if($existingGallery->count())
                                                 <div style="margin-bottom:10px;">
-                                                    <p><strong>Current Gallery:</strong></p>
+                                                    <p><strong>Current Gallery:</strong> <small class="text-muted">— tick to remove on save; new uploads are added alongside these</small></p>
                                                     <div style="display:flex;flex-wrap:wrap;gap:8px;">
                                                         @foreach($existingGallery as $gItem)
                                                         @php $gImg = json_decode($gItem->gallery, true); @endphp
                                                         @if(!empty($gImg['original']))
-                                                        <img src="{{ asset($gImg['original']) }}"
-                                                             style="width:100px;height:80px;object-fit:cover;border:1px solid #ddd;padding:2px;">
+                                                        <label style="display:inline-block;text-align:center;cursor:pointer;font-weight:normal;">
+                                                            <img src="{{ asset($gImg['original']) }}"
+                                                                 style="width:100px;height:80px;object-fit:cover;border:1px solid #ddd;padding:2px;display:block;">
+                                                            <span style="font-size:12px;color:#c0392b;">
+                                                                <input type="checkbox" name="remove_images[]" value="{{ $gItem->id }}"> remove
+                                                            </span>
+                                                        </label>
                                                         @endif
                                                         @endforeach
                                                     </div>

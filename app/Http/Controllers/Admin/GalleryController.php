@@ -34,6 +34,8 @@ class GalleryController extends Controller
             'status'      => 'required|in:active,inactive',
             'gallery'     => 'nullable|array',
             'gallery.*'   => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
+            'remove_images'   => 'nullable|array',
+            'remove_images.*' => 'integer',
         ]);
 
         DB::beginTransaction();
@@ -55,26 +57,15 @@ class GalleryController extends Controller
             $dataInfo->save();
 
             // ── Gallery images ─────────────────────────────────────────
-            // ── Gallery images ─────────────────────────────────────────
+            // Remove only the photos ticked for removal (scoped to this album)
+            if ($id && $request->filled('remove_images')) {
+                $this->deleteImages(GalleryImage::where('gallery_id', $dataInfo->id)->whereIn('id', $request->remove_images)->get());
+            }
+
+            // New uploads are added to the album's existing photos
             $files = $request->file('gallery'); // returns array or null
 
             if (!empty($files)) {
-
-                // On edit: delete old gallery rows + files
-                if ($id) {
-                    $oldGalleries = GalleryImage::where('gallery_id', $dataInfo->id)->get();
-
-                    foreach ($oldGalleries as $old) {
-                        if ($old->gallery) {
-                            $paths = json_decode($old->gallery, true);
-                            if (!empty($paths['original']) && file_exists(public_path($paths['original']))) {
-                                unlink(public_path($paths['original']));
-                            }
-                        }
-                    }
-
-                    GalleryImage::where('gallery_id', $dataInfo->id)->delete();
-                }
 
                 foreach ($files as $file) {
 
@@ -82,7 +73,7 @@ class GalleryController extends Controller
                     if (!$file->isValid()) continue;
 
                     $filename  = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-                    $uploadDir = 'uploads/projects/' . $dataInfo->id . '/';
+                    $uploadDir = 'uploads/gallery/' . $dataInfo->id . '/';
                     $fullDir   = public_path($uploadDir);
 
                     if (!file_exists($fullDir)) {
@@ -119,16 +110,8 @@ class GalleryController extends Controller
 
         if ($dataInfo) {
 
-            // Delete image files if exist
-            if (! empty($dataInfo->image)) {
-                $images = json_decode($dataInfo->image);
-
-                foreach ($images as $imgPath) {
-                    if (file_exists(public_path($imgPath))) {
-                        @unlink(public_path($imgPath));
-                    }
-                }
-            }
+            // Delete the album's photo rows and files
+            $this->deleteImages(GalleryImage::where('gallery_id', $dataInfo->id)->get());
 
             // Delete database record
             $dataInfo->delete();
@@ -137,5 +120,16 @@ class GalleryController extends Controller
         }
 
         return back()->with('error', 'Data not found.');
+    }
+
+    private function deleteImages($images): void
+    {
+        foreach ($images as $image) {
+            $paths = json_decode($image->gallery ?? '', true);
+            if (!empty($paths['original']) && file_exists(public_path($paths['original']))) {
+                @unlink(public_path($paths['original']));
+            }
+            $image->delete();
+        }
     }
 }
