@@ -70,13 +70,17 @@ Route::middleware(['auth'])->group(function () {
 
         });
 
-        Route::prefix('service-page')->name('service-page.')->group(function () {
+        Route::prefix('pages')->name('page.')->group(function () {
             Route::get('/', [\App\Http\Controllers\Admin\ServicePageController::class, 'index'])->name('index');
             Route::post('add/update/info/{id?}', [\App\Http\Controllers\Admin\ServicePageController::class, 'addOrUpdateInfo'])->name('add.update.info');
+            Route::delete('/delete/{id}', [\App\Http\Controllers\Admin\ServicePageController::class, 'dataInfoDelete'])->name('delete');
         });
 
-        Route::prefix('product-page')->name('product-page.')->group(function () {
-            Route::get('/', [\App\Http\Controllers\Admin\ServicePageController::class, 'productIndex'])->name('index');
+        Route::prefix('menu')->name('menu.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\Admin\MenuController::class, 'index'])->name('index');
+            Route::post('add/update/info/{id?}', [\App\Http\Controllers\Admin\MenuController::class, 'addOrUpdateInfo'])->name('add.update.info');
+            Route::delete('/delete/{id}', [\App\Http\Controllers\Admin\MenuController::class, 'dataInfoDelete'])->name('delete');
+            Route::post('/reorder', [\App\Http\Controllers\Admin\MenuController::class, 'reorder'])->name('reorder');
         });
 
         Route::prefix('review')->name('review.')->group(function () {

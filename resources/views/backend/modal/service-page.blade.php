@@ -11,7 +11,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
-                <h4 class="modal-title">{{ $editTitle }} — <span style="text-transform:capitalize;">{{ $data->key }}</span></h4>
+                <h4 class="modal-title">{{ $editTitle }} — {{ $data->title }}</h4>
             </div>
 
             <div class="modal-body">
@@ -21,9 +21,25 @@
                             <div class="col-md-12">
 
                                 <form method="POST"
-                                      action="{{ route('admin.service-page.add.update.info', $data->id) }}"
+                                      action="{{ route('admin.page.add.update.info', $data->id) }}"
                                       enctype="multipart/form-data">
                                     @csrf
+
+                                    {{-- Type + URL key (together they form the page address) --}}
+                                    <div class="row">
+                                        <div class="col-md-4 form-group">
+                                            <label>Type</label>
+                                            <select name="type" class="form-control">
+                                                @foreach(\App\Models\ServicePage::TYPE_LABELS as $typeKey => $typeLabel)
+                                                    <option value="{{ $typeKey }}" @selected($data->type === $typeKey)>{{ $typeLabel }} (/{{ \App\Models\ServicePage::TYPES[$typeKey] }}/…)</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <label>URL Key <small class="text-muted">(changing it changes the page address)</small></label>
+                                            <input type="text" name="key" class="form-control" value="{{ $data->key }}" />
+                                        </div>
+                                    </div>
 
                                     {{-- Title --}}
                                     <div class="form-group">

@@ -60,69 +60,22 @@
                 <div class="col-md-10">
                     <!-- 					<i class="fa fa-bars"></i> -->
                     <div class="mainmenu">
-                        <ul id="navigation" class=""><li id="menu-item-1335" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-1096 current_page_item menu-item-1335 active "><a href="/" aria-current="page" data-ps2id-api="true">Home</a></li>
-                            <li id="menu-item-3168" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3168"><a href="{{route('about-us')}}" data-ps2id-api="true">About Us</a>
-                                <ul class="sub-menu">
-                                    <li id="menu-item-3130" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3130"><a href="{{route('about-us')}}#s1" data-ps2id-api="true">Company Profile</a></li>
-                                    <li id="menu-item-3132" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3132"><a href="{{route('about-us')}}#s3" data-ps2id-api="true">Our History </a></li>
-                                    <li id="menu-item-3155" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3155"><a href="{{route('about-us')}}#s2" data-ps2id-api="true">Our Mission &#038; Vision</a></li>
-
-                                    <li id="menu-item-3170" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3170"><a href="{{route('about-us')}}#s4" data-ps2id-api="true">	Why Choose Us </a></li>
-                                    <li id="menu-item-4118" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4118"><a href="{{route('about-us')}}#s5" data-ps2id-api="true">	Quality Policy </a></li>
-                                    <li id="menu-item-3412" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3412"><a href="{{route('about-us')}}#s7" data-ps2id-api="true">	Factory & Facilities </a></li>
-                                    <li id="menu-item-7085" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7085"><a href="{{route('client.list')}}" data-ps2id-api="true">Certifications </a></li>
-
-
-                                </ul>
-                            </li>
-
-                            <li id="menu-item-3062" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3062"><a href="{{ route('services.design') }}" data-ps2id-api="true">Services</a>
-                                <ul class="sub-menu">
-                                    <li id="menu-item-3404" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3404"><a href="{{ route('services.design') }}">Design</a></li>
-                                    <li id="menu-item-3405" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3405"><a href="{{ route('services.erection') }}">Erection</a></li>
-                                    <li id="menu-item-3406" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3406"><a href="{{ route('services.fabrication') }}">Fabrication </a></li>
-                                    <li id="menu-item-3406" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3406"><a href="{{ route('services.supply') }}"> Supply</a></li>
-                                </ul>
-                            </li>
-                            <li id="menu-item-3062" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3062"><a href="{{ route('products.show', 'steel-structure') }}" data-ps2id-api="true">Products</a>
-                                <ul class="sub-menu">
-                                    <li id="menu-item-3404" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3404">
-                                        <a href="https://industrialrackbd.com/guardrail/" target="_blank" rel="noopener noreferrer">
-                                            Highway Guard Rail Systems
-                                        </a>
-                                    </li>
-                                    <li id="menu-item-3405" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3405"><a href="{{ route('products.show', 'steel-structure') }}">Steel Structures</a></li>
-                                    <li id="menu-item-3406" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3406"><a href="{{ route('products.show', 'road-safety') }}">Road Safety Products</a></li>
-                                    <li id="menu-item-3406" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3406"><a href="{{ route('products.show', 'custom-fabrication') }}">Custom Fabrication</a></li>
-                                    <li id="menu-item-3406" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3406"><a href="https://industrialrackbd.com" data-ps2id-api="true">		Industrial Rack </a></li>
-                                    <li id="menu-item-3406" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3406"><a href="https://industrialrackbd.com/industrial-furniture/" target="_blank" rel="noopener noreferrer"> 	Industrial Furniture</a></li>
-                                </ul>
-                            </li>
-                            <li id="menu-item-7061" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-7061"><a href="{{route('complete-project')}}" data-ps2id-api="true">Our Projects</a>
-                                <ul class="sub-menu">
-                                    <li id="menu-item-7083" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7083"><a href="{{route('running-project')}}" data-ps2id-api="true">Running Projects</a></li>
-                                    <li id="menu-item-7062" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7062"><a href="{{route('complete-project')}}" data-ps2id-api="true">Completed Projects</a></li>
-                                </ul>
-                            </li>
-                            <li id="menu-item-7061" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-7061"><a href="{{route('complete-project')}}" data-ps2id-api="true">	Manufacturing </a>
-                                <ul class="sub-menu">
-                                    <li id="menu-item-7083" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7083"><a href="{{route('running-project')}}" data-ps2id-api="true">	Production Process </a></li>
-                                    <li id="menu-item-7062" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7062"><a href="{{route('complete-project')}}" data-ps2id-api="true">Quality Control </a></li>
-                                </ul>
-                            </li>
-                            <li id="menu-item-3057" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3057"><a href="{{route('gallery')}}" data-ps2id-api="true">	Clients</a></li>
-                            <li id="menu-item-7061" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-7061"><a href="{{route('complete-project')}}" data-ps2id-api="true">	Gallery </a>
-                                <ul class="sub-menu">
-                                    <li id="menu-item-7083" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7083"><a href="{{route('running-project')}}" data-ps2id-api="true">		Photo Gallery  </a></li>
-                                    <li id="menu-item-7062" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7062"><a href="{{route('complete-project')}}" data-ps2id-api="true">	Video Gallery  </a></li>
-                                </ul>
-                            </li>
-
-                            <!--                            <li id="menu-item-3057" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3057"><a href="{{route('gallery')}}" data-ps2id-api="true">Gallery</a></li>-->
-
-                            <li id="menu-item-3056" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3056"><a href="{{route('blog.index')}}" data-ps2id-api="true">	News & Events</a></li>
-                            <li id="menu-item-7606" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7606"><a href="media-coverage/index.html" data-ps2id-api="true">	Careers </a></li>
-                            <li id="menu-item-3060" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3060"><a href="{{route('contact-us')}}" data-ps2id-api="true">Contact us</a></li>
+                        <ul id="navigation" class="">
+                            @foreach($navMenus as $menu)
+                                @php $isActive = $menu->isCurrent() || $menu->navChildren->contains(fn ($c) => $c->isCurrent()); @endphp
+                                <li class="menu-item {{ $menu->navChildren->isNotEmpty() ? 'menu-item-has-children' : '' }} {{ $isActive ? 'current-menu-item active' : '' }}">
+                                    <a href="{{ $menu->link }}" data-ps2id-api="true" @if($menu->new_tab) target="_blank" rel="noopener noreferrer" @endif>{{ $menu->title }}</a>
+                                    @if($menu->navChildren->isNotEmpty())
+                                        <ul class="sub-menu">
+                                            @foreach($menu->navChildren as $child)
+                                                <li class="menu-item">
+                                                    <a href="{{ $child->link }}" data-ps2id-api="true" @if($child->new_tab) target="_blank" rel="noopener noreferrer" @endif>{{ $child->title }}</a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                </li>
+                            @endforeach
                         </ul>                    </div>
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Menu;
 use App\Models\Setting;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
@@ -29,6 +30,17 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             $setting = Setting::find(1);
             $view->with('setting', $setting);
+        });
+
+        // Navigation menu (managed in admin → Navigation Menu)
+        View::composer('layouts.frontend.header', function ($view) {
+            $view->with('navMenus', Menu::with(['page', 'children' => fn ($q) => $q->where('status', true)->with('page')])
+                ->whereNull('parent_id')
+                ->where('status', true)
+                ->orderBy('serial')
+                ->orderBy('id')
+                ->get()
+                ->each(fn ($menu) => $menu->setRelation('navChildren', $menu->navChildren())));
         });
     }
 

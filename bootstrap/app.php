@@ -23,6 +23,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state']);
 
+        // Already-logged-in users visiting /login go to the admin, matching Fortify's 'home'
+        $middleware->redirectUsersTo('/admin/dashboard');
+
         $middleware->web(append: [
             HandleAppearance::class,
             HandleInertiaRequests::class,

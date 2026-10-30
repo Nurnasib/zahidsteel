@@ -47,28 +47,10 @@ class IndexController extends Controller
         return view('frontend.about-us', $data);
     }
 
-    public function serviceDesign(){
-        $data['page'] = \App\Models\ServicePage::where('key', 'design')->first();
-        return view('frontend.services.show', $data);
-    }
-
-    public function serviceErection(){
-        $data['page'] = \App\Models\ServicePage::where('key', 'erection')->first();
-        return view('frontend.services.show', $data);
-    }
-
-    public function serviceFabrication(){
-        $data['page'] = \App\Models\ServicePage::where('key', 'fabrication')->first();
-        return view('frontend.services.show', $data);
-    }
-
-    public function serviceSupply(){
-        $data['page'] = \App\Models\ServicePage::where('key', 'supply')->first();
-        return view('frontend.services.show', $data);
-    }
-
-    public function productPage($key){
-        $data['page'] = \App\Models\ServicePage::where('type', 'product')->where('key', $key)->firstOrFail();
+    public function page($section, $key){
+        $data['page'] = \App\Models\ServicePage::where('type', array_search($section, \App\Models\ServicePage::TYPES))
+            ->where('key', $key)
+            ->firstOrFail();
         return view('frontend.services.show', $data);
     }
 
@@ -82,7 +64,14 @@ class IndexController extends Controller
         return view('frontend.project.running',$data);
     }
     public function gallery(){
-        $data['gallery'] = Gallery::with('gallery')->orderBy('id','desc')->get();
+        $data['gallery'] = Gallery::with('gallery')->where('status', 'active')->orderBy('id','desc')->get();
+
+        return view('frontend.gallery',$data);
+    }
+
+    public function galleryAlbum($slug){
+        $data['album'] = Gallery::with('gallery')->where('slug', $slug)->where('status', 'active')->firstOrFail();
+        $data['gallery'] = collect([$data['album']]);
 
         return view('frontend.gallery',$data);
     }

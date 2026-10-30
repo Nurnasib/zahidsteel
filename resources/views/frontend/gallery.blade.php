@@ -1,10 +1,18 @@
 @extends('layouts.frontend.master')
 
+@isset($album)
+    @section('meta_title', $album->title . ' | Gallery')
+@endisset
+
 @section('content')
 <div class="construction-content-area">
     <div class="container">
         <div class="row">
             <div class="col-md-12 wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+                @isset($album)
+                    {{-- Single album: heading instead of the category filter --}}
+                    <h1 style="font-size:30px;font-weight:700;margin:0 0 25px;">{{ $album->title }}</h1>
+                @else
                 <div class="shorting-menu">
                     <button type="button" data-filter="all" class="mixitup-control-active">All</button>
                     @foreach($gallery as $cat)
@@ -13,6 +21,7 @@
                     @endif
                     @endforeach
                 </div>
+                @endisset
             </div>
         </div>
 

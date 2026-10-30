@@ -8,36 +8,31 @@ use App\Models\ServicePage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ServicePageController extends Controller
 {
     public function index()
     {
-        $data['title']     = 'Service Pages';
+        $data['title']     = 'Add Page';
         $data['dashboard'] = 'Dashboard';
-        $data['subTitle']  = 'Service Pages';
-        $data['editTitle'] = 'Edit Service Page';
-        $data['dataList']  = ServicePage::where('type', 'service')->orderBy('id')->get();
-
-        return view('backend.service-page', $data);
-    }
-
-    // Product pages (Products menu) share the same table, form and save logic
-    public function productIndex()
-    {
-        $data['title']     = 'Product Pages';
-        $data['dashboard'] = 'Dashboard';
-        $data['subTitle']  = 'Product Pages';
-        $data['editTitle'] = 'Edit Product Page';
-        $data['dataList']  = ServicePage::where('type', 'product')->orderBy('id')->get();
+        $data['subTitle']  = 'Pages';
+        $data['addTitle']  = 'Add New Page';
+        $data['editTitle'] = 'Edit Page';
+        $data['dataList']  = ServicePage::withCount('menus')->orderByRaw("FIELD(type, 'service', 'product', 'page')")->orderBy('id')->get();
 
         return view('backend.service-page', $data);
     }
 
     public function addOrUpdateInfo(Request $request, $id = null)
     {
+        // URL key: given slug, else derived from the title
+        $request->merge(['key' => Str::slug($request->input('key') ?: $request->input('title'))]);
+
         $request->validate([
+            'type'             => 'required|in:' . implode(',', array_keys(ServicePage::TYPES)),
+            'key'              => 'required|alpha_dash|max:191|unique:service_pages,key,' . ($id ?: 'NULL'),
             'image'            => 'nullable|image|max:2048',
             'blocks'           => 'nullable|array',
             'blocks.*.image'   => 'nullable|image|max:2048',
@@ -45,7 +40,7 @@ class ServicePageController extends Controller
             'gallery_images.*' => 'nullable|image|max:2048',
             'remove_gallery'   => 'nullable|array',
             'title'            => 'required|string|max:255',
-            'subtitle'         => 'nullable|string|max:500',
+            'subtitle'         => 'nullable|string|max:255',
             'meta_title'       => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:500',
             'body'             => 'nullable|string',
@@ -54,12 +49,14 @@ class ServicePageController extends Controller
         DB::beginTransaction();
 
         try {
-            $dataInfo = ServicePage::find($id);
+            $dataInfo = $id ? ServicePage::find($id) : new ServicePage();
 
             if (! $dataInfo) {
-                return back()->with('error', 'Service page not found.');
+                return back()->with('error', 'Page not found.');
             }
 
+            $dataInfo->type     = $request->type;
+            $dataInfo->key      = $request->key;
             $dataInfo->title    = $request->title;
             $dataInfo->subtitle = $request->subtitle;
             $dataInfo->meta_title       = $request->meta_title;
@@ -164,7 +161,7 @@ class ServicePageController extends Controller
 
             DB::commit();
 
-            Alert::toast('Updated successfully!', 'success');
+            Alert::toast($id ? 'Updated successfully!' : 'Page created successfully!', 'success');
 
             return back();
 
@@ -176,5 +173,40 @@ class ServicePageController extends Controller
 
             return back()->with('error', 'Something went wrong. Please try again.');
         }
+    }
+
+    public function dataInfoDelete(Request $request, $id = null)
+    {
+        $dataInfo = ServicePage::withCount('menus')->find($id);
+
+        if (! $dataInfo) {
+            return back()->with('error', 'Data not found.');
+        }
+
+        if ($dataInfo->menus_count > 0) {
+            Alert::toast('This page is linked from the navigation menu. Remove or relink those menu items first.', 'error');
+
+            return back();
+        }
+
+        // Remove uploaded files: hero image, block images and gallery
+        $images = array_merge(
+            [json_decode($dataInfo->image ?? '', true)],
+            array_column(json_decode($dataInfo->blocks ?? '[]', true) ?: [], 'image'),
+            json_decode($dataInfo->gallery ?? '[]', true) ?: []
+        );
+        foreach ($images as $img) {
+            foreach ((array) $img as $imgPath) {
+                if (is_string($imgPath) && file_exists(public_path($imgPath))) {
+                    @unlink(public_path($imgPath));
+                }
+            }
+        }
+
+        $dataInfo->delete();
+
+        Alert::toast('Page deleted successfully!', 'success');
+
+        return back();
     }
 }

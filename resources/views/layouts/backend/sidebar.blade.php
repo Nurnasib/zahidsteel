@@ -60,7 +60,7 @@
 
                         </ul>
                     </li>
-                    <li class="has-child-item {{ request()->is('admin/slider*') || request()->is('admin/product*') || request()->is('admin/team*') || request()->is('admin/client*') || request()->is('admin/subscriber*') || request()->is('admin/review*') || request()->is('admin/why-choose-us*') || request()->is('admin/faq*') || request()->is('admin/service*') || request()->is('admin/service-page*') || request()->is('admin/patner*') ? 'open-item' : 'close-item' }}">
+                    <li class="has-child-item {{ request()->is('admin/slider*') || request()->is('admin/product*') || request()->is('admin/team*') || request()->is('admin/client*') || request()->is('admin/subscriber*') || request()->is('admin/review*') || request()->is('admin/why-choose-us*') || request()->is('admin/faq*') || request()->is('admin/service*') || request()->is('admin/pages*') || request()->is('admin/menu*') || request()->is('admin/patner*') ? 'open-item' : 'close-item' }}">
                         <a><i class="fa fa-cubes" aria-hidden="true"></i><span>Frontend</span></a>
                         <ul class="nav child-nav level-1">
 
@@ -68,8 +68,8 @@
                             <li class="{{ request()->routeIs('admin.faq.*') ? 'active-item' : 'close-item' }}"><a href="{{route('admin.faq.index')}}">Faq</a></li>
                             <li class="{{ request()->routeIs('admin.patner.*') ? 'active-item' : 'close-item' }}"><a href="{{route('admin.patner.index')}}">Client</a></li>
                             <li class="{{ request()->routeIs('admin.service.*') ? 'active-item' : 'close-item' }}"><a href="{{route('admin.service.index')}}">Service</a></li>
-                            <li class="{{ request()->routeIs('admin.service-page.*') ? 'active-item' : 'close-item' }}"><a href="{{route('admin.service-page.index')}}">Service Pages</a></li>
-                            <li class="{{ request()->routeIs('admin.product-page.*') ? 'active-item' : 'close-item' }}"><a href="{{route('admin.product-page.index')}}">Product Pages</a></li>
+                            <li class="{{ request()->routeIs('admin.menu.*') ? 'active-item' : 'close-item' }}"><a href="{{route('admin.menu.index')}}">Navigation Menu</a></li>
+                            <li class="{{ request()->routeIs('admin.page.*') ? 'active-item' : 'close-item' }}"><a href="{{route('admin.page.index')}}">Pages</a></li>
                             <li class="{{ request()->routeIs('admin.review.*') ? 'active-item' : 'close-item' }}"><a href="{{route('admin.review.index')}}">Review</a></li>
                             <li class="{{ request()->routeIs('admin.why-choose-us.*') ? 'active-item' : 'close-item' }}"><a href="{{route('admin.why-choose-us.index')}}">Why Choose Us</a></li>
                             <li class="{{ request()->routeIs('admin.subscriber.*') ? 'active-item' : 'close-item' }}"><a href="{{route('admin.subscriber.index')}}">Subscriber</a></li>

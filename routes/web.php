@@ -18,18 +18,16 @@ Route::prefix('blog')->name('blog.')->group(function () {
 Route::get('/client-list', [\App\Http\Controllers\Frontend\IndexController::class, 'clientList'])->name('client.list');
 Route::get('/about-us', [\App\Http\Controllers\Frontend\IndexController::class, 'aboutUse'])->name('about-us');
 
-Route::prefix('services')->name('services.')->group(function () {
-    Route::get('/design', [\App\Http\Controllers\Frontend\IndexController::class, 'serviceDesign'])->name('design');
-    Route::get('/erection', [\App\Http\Controllers\Frontend\IndexController::class, 'serviceErection'])->name('erection');
-    Route::get('/fabrication', [\App\Http\Controllers\Frontend\IndexController::class, 'serviceFabrication'])->name('fabrication');
-    Route::get('/supply', [\App\Http\Controllers\Frontend\IndexController::class, 'serviceSupply'])->name('supply');
-});
-Route::get('/products/{key}', [\App\Http\Controllers\Frontend\IndexController::class, 'productPage'])->name('products.show');
+// CMS pages managed in admin: /services/{key}, /products/{key}, /pages/{key}
+Route::get('/{section}/{key}', [\App\Http\Controllers\Frontend\IndexController::class, 'page'])
+    ->whereIn('section', array_values(\App\Models\ServicePage::TYPES))
+    ->name('page.show');
 Route::get('/factory', [\App\Http\Controllers\Frontend\IndexController::class, 'factory'])->name('factory');
 
 Route::get('/complete-project', [\App\Http\Controllers\Frontend\IndexController::class, 'completeProject'])->name('complete-project');
 Route::get('/running-project', [\App\Http\Controllers\Frontend\IndexController::class, 'runningProject'])->name('running-project');
 Route::get('/gallery', [\App\Http\Controllers\Frontend\IndexController::class, 'gallery'])->name('gallery');
+Route::get('/gallery/{slug}', [\App\Http\Controllers\Frontend\IndexController::class, 'galleryAlbum'])->name('gallery.album');
 Route::get('/contact-us', [\App\Http\Controllers\Frontend\IndexController::class, 'contactUs'])->name('contact-us');
 Route::post('/send-message', [\App\Http\Controllers\Frontend\IndexController::class, 'sendMessage'])->name('send-message');
 

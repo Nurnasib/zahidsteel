@@ -29,12 +29,14 @@
 
         <div class="row">
             <div class="col-sm-12">
+                @include('backend.partials.form-errors')
 
                 <div class="panel">
                     <div class="panel b-primary bt-md">
                         <div class="panel-content p-none">
                             <div class="widget-list list-to-do">
                                 <h4 class="list-title">{{ $subTitle }}</h4>
+                                <button class="add-item btn btn-o btn-primary btn-xs" data-toggle="modal" data-target="#addRowModal">{{ $title }}<i class="fa fa-plus" style="padding-left: 10px"></i></button>
                             </div>
                         </div>
                     </div>
@@ -48,8 +50,9 @@
                                 <tr>
                                     <th>Sl:</th>
                                     <th>Image</th>
-                                    <th>Page</th>
+                                    <th>Type</th>
                                     <th>Title</th>
+                                    <th>URL</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -65,12 +68,24 @@
                                                 <span class="text-muted">—</span>
                                             @endif
                                         </td>
-                                        <td style="text-transform:capitalize;">{{ $data->key }}</td>
+                                        <td>{{ \App\Models\ServicePage::TYPE_LABELS[$data->type] ?? $data->type }}</td>
                                         <td>{{ $data->title }}</td>
-                                        <td>
+                                        <td><a href="{{ $data->url }}" target="_blank" rel="noopener">{{ parse_url($data->url, PHP_URL_PATH) }}</a></td>
+                                        <td style="display:flex;gap:10px;">
                                             <a href="#" data-toggle="modal"
                                                data-target="#editRowModal{{ $data->id }}"
                                                class="btn btn-warning btn-sm">Edit</a>
+                                            @if($data->menus_count > 0)
+                                                <button type="button" class="btn btn-danger btn-sm" disabled
+                                                        title="Linked from {{ $data->menus_count }} menu item(s) — unlink it in Menus first">Delete</button>
+                                            @else
+                                                <form action="{{ route('admin.page.delete', $data->id) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm"
+                                                            onclick="return confirm('Delete this page and its images?')">Delete</button>
+                                                </form>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -82,6 +97,8 @@
 
             </div>
         </div>
+
+        @include('backend.modal.page-create')
 
         {{-- ── Edit modals ─────────────────────────────────────────────── --}}
         @foreach ($dataList as $data)
