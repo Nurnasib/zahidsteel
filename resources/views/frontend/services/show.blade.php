@@ -6,8 +6,23 @@
 @if(!empty($page?->meta_description))
     @section('meta_description', $page->meta_description)
 @endif
+@if($page?->shareImage())
+    @section('og_image', $page->shareImage())
+@endif
 
 @section('content')
+@if($page && ($faqs = $page->faqs()))
+    {{-- FAQ rich results, read from the page's "Frequently Asked Questions" section --}}
+    <script type="application/ld+json">{!! json_encode([
+        '@context'   => 'https://schema.org',
+        '@type'      => 'FAQPage',
+        'mainEntity' => array_map(fn ($faq) => [
+            '@type'          => 'Question',
+            'name'           => $faq['question'],
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => $faq['answer']],
+        ], $faqs),
+    ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) !!}</script>
+@endif
 <div class="svc-page">
     @include('frontend.services._styles')
 

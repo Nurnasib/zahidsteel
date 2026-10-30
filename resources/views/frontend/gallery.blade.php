@@ -2,6 +2,10 @@
 
 @isset($album)
     @section('meta_title', $album->title . ' | Gallery')
+    @php $cover = json_decode($album->gallery->first()?->gallery ?? '', true)['original'] ?? null; @endphp
+    @if($cover)
+        @section('og_image', asset($cover))
+    @endif
 @endisset
 
 @section('content')

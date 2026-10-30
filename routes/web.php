@@ -31,6 +31,9 @@ Route::get('/gallery/{slug}', [\App\Http\Controllers\Frontend\IndexController::c
 Route::get('/contact-us', [\App\Http\Controllers\Frontend\IndexController::class, 'contactUs'])->name('contact-us');
 Route::post('/send-message', [\App\Http\Controllers\Frontend\IndexController::class, 'sendMessage'])->name('send-message');
 
+Route::get('/sitemap.xml', [\App\Http\Controllers\Frontend\SeoController::class, 'sitemap'])->name('sitemap');
+Route::get('/robots.txt', [\App\Http\Controllers\Frontend\SeoController::class, 'robots'])->name('robots');
+
 Route::get('/brochure', [\App\Http\Controllers\Frontend\IndexController::class, 'brochure'])->name('brochure');
 
 // Remove the old dashboard route and keep only settings

@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google-site-verification" content="6ZFrznxep4f00Bug0ZhmBcM8tMqMNUhiR2TiYMiS5nM" />
 
-    <meta property="og:image" content="{{asset('frontend')}}/assets/img/logo.png" />
     <title>@yield('meta_title', $setting->site_name)</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{asset('frontend')}}/assets/css/bootstrap.min.css">
@@ -57,19 +56,17 @@
     <link rel="canonical" href="{{ url()->current() }}" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="{{$setting->seo_title}}" />
-    <meta property="og:description" content="{{$setting->seo_description}}" />
-    <meta property="og:url" content="{{$setting->url}}" />
+    {{-- Social sharing: pages override meta_title / meta_description / og_image via @section --}}
+    <meta property="og:title" content="@yield('meta_title', $setting->seo_title)" />
+    <meta property="og:description" content="@yield('meta_description', $setting->seo_description)" />
+    <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:site_name" content="{{$setting->site_name}}" />
     <meta property="article:publisher" content="{{$setting->fb}}" />
-    <meta property="article:modified_time" content="2025-11-18T06:57:15+00:00" />
-    <meta property="og:image" content="{{asset($setting->logo)}}" />
-    <meta property="og:image:width" content="675" />
-    <meta property="og:image:height" content="366" />
-    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image" content="@yield('og_image', asset($setting->logo))" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="{{$setting->seo_title}}" />
-    <meta name="twitter:image" content="{{asset($setting->logo)}}" />
+    <meta name="twitter:title" content="@yield('meta_title', $setting->seo_title)" />
+    <meta name="twitter:description" content="@yield('meta_description', $setting->seo_description)" />
+    <meta name="twitter:image" content="@yield('og_image', asset($setting->logo))" />
 
 
 
